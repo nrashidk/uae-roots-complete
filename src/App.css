@@ -1,0 +1,1481 @@
+/* 
+ * UAE Roots Family Tree - COMPLETE COMPREHENSIVE SYSTEM
+ * Version: 7.0 - Final Solution with Perfect Sidebar + Auto Tree Rearrangement
+ * 
+ * COMPREHENSIVE FEATURES:
+ * ======================
+ * 1. PERFECT SIDEBAR SIZING - Uses your exact working fix permanently
+ * 2. AUTO TREE REARRANGEMENT - Dynamic family tree layout system  
+ * 3. FAMILYECHO-STYLE CONNECTIONS - Professional line system
+ * 4. RESPONSIVE DESIGN - Works on all devices
+ * 5. PROFESSIONAL ANIMATIONS - Smooth transitions
+ * 6. ZERO MAINTENANCE - Everything works automatically
+ * 
+ * SIDEBAR SOLUTION:
+ * - Uses your exact temporary fix logic permanently
+ * - Automatic content height detection
+ * - Perfect positioning every time
+ * - No CSS constraints that cause sizing issues
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* SIDEBAR SYSTEM - Based on your working fix */
+  --sidebar-width: 440px;
+  --sidebar-right-offset: 24px;
+  --sidebar-border-radius: 24px;
+  --sidebar-max-height-ratio: 0.85; /* 85% of viewport */
+  --sidebar-padding-buffer: 20px;
+  --sidebar-background: #ffffff;
+  --sidebar-border-color: #e5e7eb;
+  --sidebar-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --sidebar-z-index: 9999;
+  
+  /* FAMILY TREE LAYOUT SYSTEM */
+  --tree-center-x: 2000px;
+  --tree-center-y: 1500px;
+  --generation-height: 200px;
+  --family-unit-width: 300px;
+  --min-person-spacing: 100px;
+  --max-siblings-per-row: 6;
+  --tree-padding: 200px;
+  
+  /* ANIMATION SYSTEM */
+  --rearrange-duration: 800ms;
+  --rearrange-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --stagger-delay: 50ms;
+  --sidebar-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* PERSON BOX MEASUREMENTS */
+  --person-width: 200px;
+  --person-height: 100px;
+  --person-margin: 20px;
+  
+  /* CONNECTION LINE MEASUREMENTS */
+  --marriage-line-height: 6px;
+  --parent-line-width: 4px;
+  --sibling-line-width: 3px;
+  --generation-line-width: 4px;
+  
+  /* ENHANCED DESIGN SYSTEM */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --surface-primary: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-overlay: rgba(255, 255, 255, 0.98);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-tertiary: #64748b;
+  --text-quaternary: #94a3b8;
+  --text-inverse: #ffffff;
+  
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --border-focus: #3b82f6;
+  
+  /* UAE BRAND COLORS */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  
+  /* CONNECTION LINE COLORS - FAMILYECHO STYLE */
+  --line-marriage: #8B4513;         /* Brown for marriages */
+  --line-parent: #2d3748;           /* Dark gray for parent-child */
+  --line-sibling: #059669;          /* Green for siblings */
+  --line-generation: #4338ca;       /* Purple for generation trunks */
+  --line-extended: #6b7280;         /* Gray for extended family */
+  --line-adopted: #d97706;          /* Amber for adopted */
+  --line-twin: #7c3aed;             /* Violet for twins */
+  
+  /* SPACING SYSTEM - 8PT GRID */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  
+  /* BORDER RADIUS & SHADOWS */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 30px;
+  --radius-full: 9999px;
+  
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* FOCUS & TRANSITIONS */
+  --focus-ring-offset: 0 0 0 2px #ffffff, 0 0 0 4px var(--primary-500);
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* DARK MODE SUPPORT */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --surface-primary: #1e293b;
+    --surface-elevated: #334155;
+    --surface-overlay: rgba(30, 41, 59, 0.98);
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --text-quaternary: #64748b;
+    
+    --border-primary: #334155;
+    --border-secondary: #475569;
+    
+    --sidebar-background: #1e293b;
+    --sidebar-border-color: #475569;
+    
+    /* Enhanced visibility for dark mode */
+    --line-marriage: #dc2626;
+    --line-parent: #e2e8f0;
+    --line-sibling: #22c55e;
+    --line-generation: #8b5cf6;
+  }
+}
+
+/* BASE STYLES */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.5;
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Sakkal Majalla', 'Traditional Arabic', 'Amiri', 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* LAYOUT SYSTEM */
+.uae-roots-style {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* TOP TOOLBAR */
+.top-toolbar {
+  background: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-primary);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+  direction: ltr;
+  min-height: 72px;
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-200) var(--ease-out);
+  min-height: 40px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.toolbar-btn:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-300);
+  color: var(--primary-700);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-base);
+}
+
+.toolbar-btn.primary {
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  border-color: var(--primary-600);
+}
+
+.toolbar-btn.primary:hover {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+}
+
+/* MAIN LAYOUT */
+.uae-roots-layout {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 
+ * SIDEBAR SYSTEM - USING YOUR EXACT WORKING FIX
+ * ==============================================
+ * This CSS provides the base styling, but the JavaScript will 
+ * apply your exact working fix automatically and permanently
+ */
+
+.uae-roots-sidebar {
+  /* Initial hidden state - JavaScript will override with your exact fix */
+  position: fixed;
+  top: 50%;
+  right: var(--sidebar-right-offset);
+  transform: translateY(-50%) translateX(calc(100% + var(--sidebar-right-offset)));
+  width: var(--sidebar-width);
+  
+  /* Base styling that JavaScript will enhance */
+  background: var(--sidebar-background);
+  border: 1px solid var(--sidebar-border-color);
+  border-radius: var(--sidebar-border-radius);
+  box-shadow: var(--sidebar-shadow);
+  z-index: var(--sidebar-z-index);
+  
+  /* Flexible layout for content */
+  display: flex;
+  flex-direction: column;
+  
+  /* Smooth transitions */
+  transition: var(--sidebar-transition);
+}
+
+.uae-roots-sidebar.open {
+  /* JavaScript will handle the exact positioning */
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Sidebar will be enhanced by JavaScript with your exact fix */
+.uae-roots-sidebar.js-enhanced {
+  /* This class indicates JavaScript has applied your working fix */
+}
+
+/* SIDEBAR CONTENT STRUCTURE */
+.sidebar-header {
+  flex-shrink: 0;
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--surface-primary);
+  border-radius: var(--sidebar-border-radius) var(--sidebar-border-radius) 0 0;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sidebar-subtitle {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin-top: var(--space-2);
+  line-height: 1.4;
+}
+
+.close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-xl);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-size: 20px;
+  transition: all var(--duration-200) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+/* FORM TABS */
+.form-tabs {
+  flex-shrink: 0;
+  display: flex;
+  background: var(--surface-primary);
+  border-bottom: 1px solid var(--border-primary);
+  position: relative;
+  min-height: 56px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: var(--space-4) var(--space-5);
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-200) var(--ease-out);
+  position: relative;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.tab-btn.active {
+  color: var(--primary-600);
+  background: var(--primary-50);
+  font-weight: 600;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: var(--space-4);
+  right: var(--space-4);
+  height: 3px;
+  background: var(--primary-600);
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+}
+
+.tab-btn:hover:not(.active) {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+/* FORM CONTENT - Will be sized by JavaScript */
+.form-content {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-secondary) transparent;
+}
+
+.form-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-content::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.form-content::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: 4px;
+  transition: background var(--duration-200) var(--ease-out);
+}
+
+.form-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* FORM ELEMENTS */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.form-section + .form-section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-primary);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  background: var(--surface-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: all var(--duration-200) var(--ease-out);
+  min-height: 44px;
+  width: 100%;
+}
+
+.form-group textarea {
+  min-height: 88px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-500);
+  box-shadow: var(--focus-ring-offset);
+  outline: none;
+}
+
+/* CHECKBOX AND RADIO GROUPS */
+.checkbox-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-3) 0;
+}
+
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  transition: color var(--duration-200) var(--ease-out);
+  min-height: 24px;
+}
+
+.checkbox-label input[type="checkbox"],
+.radio-label input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0 0;
+  cursor: pointer;
+  accent-color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.checkbox-text,
+.radio-text {
+  flex: 1;
+  user-select: none;
+  line-height: 1.5;
+}
+
+.checkbox-label:hover,
+.radio-label:hover {
+  color: var(--primary-600);
+}
+
+/* FORM ACTIONS */
+.form-actions {
+  flex-shrink: 0;
+  padding: var(--space-6);
+  border-top: 1px solid var(--border-primary);
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  align-items: center;
+  background: var(--surface-primary);
+  border-radius: 0 0 var(--sidebar-border-radius) var(--sidebar-border-radius);
+  min-height: 80px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all var(--duration-200) var(--ease-out);
+  min-height: 44px;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  border-color: var(--primary-600);
+}
+
+.btn-primary:hover {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-base);
+}
+
+.btn-secondary {
+  background: var(--surface-primary);
+  color: var(--text-secondary);
+  border-color: var(--border-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-secondary);
+  color: var(--text-primary);
+}
+
+/* MAIN CANVAS */
+.main-canvas {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+  background-size: 600px 600px;
+  background-attachment: fixed;
+}
+
+.tree-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 4000px;
+  min-height: 3000px;
+  transform-origin: center center;
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+}
+
+.tree-canvas:active {
+  cursor: grabbing;
+}
+
+/* 
+ * AUTO-REARRANGEMENT SYSTEM - FAMILY TREE LAYOUT ENGINE
+ * =====================================================
+ */
+
+.tree-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+  transform-origin: center center;
+}
+
+.tree-container.rearranging {
+  pointer-events: none;
+}
+
+.tree-container.rearranging * {
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+}
+
+/* GENERATION-BASED LAYOUT SYSTEM */
+.generation-container {
+  position: absolute;
+  width: 100%;
+  min-height: var(--generation-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+}
+
+/* Generation positioning - automatic alignment */
+.generation-container.generation-0 { /* Root generation */
+  top: calc(var(--tree-center-y) - var(--generation-height) / 2);
+  z-index: 10;
+}
+
+.generation-container.generation-plus-1 { /* Children */
+  top: calc(var(--tree-center-y) + var(--generation-height));
+  z-index: 9;
+}
+
+.generation-container.generation-plus-2 { /* Grandchildren */
+  top: calc(var(--tree-center-y) + var(--generation-height) * 2);
+  z-index: 8;
+}
+
+.generation-container.generation-plus-3 { /* Great-grandchildren */
+  top: calc(var(--tree-center-y) + var(--generation-height) * 3);
+  z-index: 7;
+}
+
+.generation-container.generation-minus-1 { /* Parents */
+  top: calc(var(--tree-center-y) - var(--generation-height));
+  z-index: 11;
+}
+
+.generation-container.generation-minus-2 { /* Grandparents */
+  top: calc(var(--tree-center-y) - var(--generation-height) * 2);
+  z-index: 12;
+}
+
+.generation-container.generation-minus-3 { /* Great-grandparents */
+  top: calc(var(--tree-center-y) - var(--generation-height) * 3);
+  z-index: 13;
+}
+
+/* FAMILY UNIT CONTAINERS */
+.family-unit {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--min-person-spacing);
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+  min-width: var(--family-unit-width);
+}
+
+.marriage-couple {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+}
+
+.siblings-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--min-person-spacing);
+  max-width: calc(var(--family-unit-width) * var(--max-siblings-per-row));
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+}
+
+.siblings-group.overflow {
+  flex-direction: column;
+  gap: calc(var(--min-person-spacing) / 2);
+}
+
+.siblings-group.overflow .sibling-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--min-person-spacing);
+}
+
+/* CONNECTION LINES SYSTEM - FAMILYECHO STYLE */
+.connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.connection-line {
+  position: absolute;
+  background: var(--line-parent);
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+  transform-origin: center center;
+}
+
+/* Marriage Lines - Horizontal connectors */
+.connection-line.marriage {
+  background: var(--line-marriage);
+  height: var(--marriage-line-height);
+  border-radius: calc(var(--marriage-line-height) / 2);
+  filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.3));
+}
+
+.connection-line.marriage-divorced {
+  background: var(--line-marriage);
+  height: var(--marriage-line-height);
+  border-radius: calc(var(--marriage-line-height) / 2);
+  filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.3));
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--line-marriage),
+    var(--line-marriage) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* Parent-Child Lines - Vertical connectors */
+.connection-line.parent-child {
+  background: var(--line-parent);
+  width: var(--parent-line-width);
+  border-radius: calc(var(--parent-line-width) / 2);
+  filter: drop-shadow(0 1px 2px rgba(45, 55, 72, 0.2));
+}
+
+/* Sibling Connector Lines */
+.connection-line.sibling-horizontal {
+  background: var(--line-sibling);
+  height: var(--sibling-line-width);
+  border-radius: calc(var(--sibling-line-width) / 2);
+}
+
+.connection-line.sibling-vertical {
+  background: var(--line-sibling);
+  width: var(--sibling-line-width);
+  border-radius: calc(var(--sibling-line-width) / 2);
+}
+
+/* Generation Trunk Lines */
+.connection-line.generation-trunk {
+  background: var(--line-generation);
+  width: var(--generation-line-width);
+  border-radius: calc(var(--generation-line-width) / 2);
+  filter: drop-shadow(0 2px 4px rgba(67, 56, 202, 0.15));
+}
+
+/* Special Relationship Lines */
+.connection-line.adopted {
+  background: var(--line-adopted);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--line-adopted),
+    var(--line-adopted) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.connection-line.twin {
+  background: var(--line-twin);
+  filter: drop-shadow(0 1px 3px rgba(124, 58, 237, 0.3));
+}
+
+/* ENHANCED PERSON CARDS */
+.person-box {
+  position: absolute;
+  width: var(--person-width);
+  height: var(--person-height);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 3px solid var(--surface-primary);
+  z-index: 20;
+  background: linear-gradient(135deg, var(--surface-primary) 0%, var(--surface-elevated) 100%);
+  backdrop-filter: blur(10px) saturate(180%);
+  overflow: hidden;
+  user-select: none;
+  transition: all var(--rearrange-duration) var(--rearrange-easing);
+  transform-origin: center center;
+}
+
+.person-box:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-400);
+  z-index: 30;
+  transition: all var(--duration-300) var(--ease-out);
+}
+
+.person-box:focus-visible {
+  box-shadow: var(--focus-ring-offset), var(--shadow-lg);
+  z-index: 30;
+}
+
+.person-box.selected {
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 4px var(--primary-200), var(--shadow-base);
+  z-index: 30;
+}
+
+.person-box.newly-added {
+  animation: personAppear var(--rearrange-duration) var(--rearrange-easing);
+  animation-fill-mode: both;
+}
+
+.person-box.repositioning {
+  transition-delay: calc(var(--stagger-delay) * var(--position-index, 0));
+}
+
+@keyframes personAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Gender-specific styling */
+.person-box.male {
+  border-left: 8px solid #3b82f6;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.1) 0%, 
+    var(--surface-primary) 25%, 
+    var(--surface-elevated) 100%);
+}
+
+.person-box.female {
+  border-left: 8px solid #ec4899;
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.1) 0%, 
+    var(--surface-primary) 25%, 
+    var(--surface-elevated) 100%);
+}
+
+.person-box.unknown {
+  border-left: 8px solid #6b7280;
+  background: linear-gradient(135deg, 
+    rgba(107, 114, 128, 0.1) 0%, 
+    var(--surface-primary) 25%, 
+    var(--surface-elevated) 100%);
+}
+
+.person-box.deceased {
+  opacity: 0.8;
+  position: relative;
+}
+
+.person-box.deceased::after {
+  content: '';
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 8px;
+  height: 8px;
+  background: #6b7280;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--surface-primary);
+}
+
+/* Person Content */
+.person-content {
+  padding: var(--space-3) var(--space-4);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.person-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  border: 2px solid var(--surface-primary);
+  object-fit: cover;
+  margin-bottom: var(--space-1);
+}
+
+.person-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.person-name.long {
+  font-size: 12px;
+  white-space: normal;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.person-details {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.person-birth-death {
+  font-size: 11px;
+  color: var(--text-quaternary);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.person-title {
+  font-size: 11px;
+  color: var(--primary-600);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+/* PERSON ACTIONS */
+.person-actions {
+  position: absolute;
+  bottom: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-300) var(--ease-out);
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.person-box:hover .person-actions,
+.person-box:focus-within .person-actions,
+.person-actions:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+.action-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-200) var(--ease-out);
+  box-shadow: var(--shadow-base);
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+}
+
+.action-btn::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: var(--surface-primary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-200) var(--ease-out);
+  z-index: 101;
+}
+
+.action-btn:hover::before {
+  opacity: 1;
+  visibility: visible;
+  top: -55px;
+}
+
+.action-btn:hover {
+  transform: scale(1.15) translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.action-btn:active {
+  transform: scale(1.05) translateY(-1px);
+  transition-duration: var(--duration-150);
+}
+
+/* Action button types */
+.action-btn.partner {
+  background: linear-gradient(135deg, #8B4513, #A0522D);
+}
+
+.action-btn.partner:hover {
+  background: linear-gradient(135deg, #654321, #8B4513);
+}
+
+.action-btn.parent {
+  background: linear-gradient(135deg, #553c9a, #6b46c1);
+}
+
+.action-btn.parent:hover {
+  background: linear-gradient(135deg, #4c1d95, #553c9a);
+}
+
+.action-btn.child {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.action-btn.child:hover {
+  background: linear-gradient(135deg, #c2410c, #ea580c);
+}
+
+.action-btn.sibling {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.action-btn.sibling:hover {
+  background: linear-gradient(135deg, #047857, #059669);
+}
+
+.action-btn.edit {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.action-btn.edit:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+}
+
+.action-btn.delete {
+  background: linear-gradient(135deg, #dc2626, #f87171);
+}
+
+.action-btn.delete:hover {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+}
+
+/* TREE CONTROLS */
+.tree-controls {
+  position: fixed;
+  z-index: 50;
+}
+
+.tree-controls.left-controls {
+  left: var(--space-6);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.control-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-primary);
+  background: var(--surface-overlay);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-base);
+  transition: all var(--duration-200) var(--ease-out);
+  backdrop-filter: blur(20px) saturate(180%);
+  user-select: none;
+}
+
+.control-btn:hover {
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  border-color: var(--primary-600);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.control-btn:active {
+  transform: scale(1.05);
+  transition-duration: var(--duration-150);
+}
+
+.control-btn.active {
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  border-color: var(--primary-600);
+}
+
+/* Rearrange button with special animation */
+.control-btn.rearrange-btn {
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  border-color: var(--primary-600);
+  animation: pulseRearrange 2s infinite;
+}
+
+.control-btn.rearrange-btn:hover {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+  animation: none;
+}
+
+@keyframes pulseRearrange {
+  0%, 100% {
+    box-shadow: var(--shadow-base);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2), var(--shadow-base);
+  }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1600px) {
+  :root {
+    --sidebar-width: 420px;
+  }
+}
+
+@media (max-width: 1400px) {
+  :root {
+    --sidebar-width: 400px;
+    --person-width: 180px;
+    --person-height: 90px;
+    --generation-height: 180px;
+    --family-unit-width: 280px;
+    --min-person-spacing: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --sidebar-width: 380px;
+    --sidebar-right-offset: 16px;
+    --person-width: 160px;
+    --person-height: 80px;
+    --generation-height: 160px;
+    --family-unit-width: 240px;
+    --min-person-spacing: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: calc(100vw - 32px);
+    --sidebar-right-offset: 16px;
+    --person-width: 140px;
+    --person-height: 70px;
+    --generation-height: 140px;
+    --family-unit-width: 200px;
+    --min-person-spacing: 40px;
+    --max-siblings-per-row: 4;
+  }
+  
+  .tree-controls.left-controls {
+    left: var(--space-3);
+  }
+  
+  .control-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --sidebar-width: calc(100vw - 16px);
+    --sidebar-right-offset: 8px;
+    --person-width: 120px;
+    --person-height: 60px;
+    --generation-height: 120px;
+    --family-unit-width: 180px;
+    --min-person-spacing: 30px;
+    --max-siblings-per-row: 3;
+  }
+  
+  .person-name {
+    font-size: 12px;
+  }
+  
+  .person-details {
+    font-size: 10px;
+  }
+  
+  .control-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+}
+
+/* PRINT STYLES */
+@media print {
+  .uae-roots-sidebar,
+  .tree-controls,
+  .top-toolbar,
+  .person-actions {
+    display: none !important;
+  }
+  
+  .main-canvas {
+    background: white !important;
+    background-image: none !important;
+  }
+  
+  .tree-canvas {
+    min-width: auto !important;
+    min-height: auto !important;
+    transform: none !important;
+  }
+  
+  .person-box {
+    background: white !important;
+    border: 2px solid black !important;
+    box-shadow: none !important;
+    transform: none !important;
+    backdrop-filter: none !important;
+  }
+  
+  .person-box.male {
+    border-left: 4px solid black !important;
+  }
+  
+  .person-box.female {
+    border-left: 4px solid black !important;
+  }
+  
+  .connection-line {
+    background: black !important;
+    filter: none !important;
+  }
+  
+  .person-name,
+  .person-details {
+    color: black !important;
+  }
+  
+  @page {
+    margin: 1.5cm;
+    size: A3 landscape;
+  }
+}
+
+/* ACCESSIBILITY ENHANCEMENTS */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .tree-container,
+  .person-box,
+  .connection-line {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .connection-line {
+    filter: none !important;
+  }
+  
+  .person-box {
+    border-width: 4px !important;
+  }
+}
+
+/* Focus management */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: var(--space-2);
+  background: var(--primary-600);
+  color: var(--text-inverse);
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  font-weight: 500;
+  transition: top var(--duration-200) var(--ease-out);
+  z-index: 10000;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: var(--radius);
+  border: 2px solid var(--bg-secondary);
+  transition: background var(--duration-200) var(--ease-out);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-secondary);
+}
+
+/*
+ * JAVASCRIPT INTEGRATION HOOKS
+ * ============================
+ * These classes are used by the JavaScript system:
+ */
+
+.js-enhanced {
+  /* Applied when JavaScript has enhanced the element */
+}
+
+.smart-sidebar-fitted {
+  /* Applied when sidebar has been sized by JavaScript */
+}
+
+.tree-rearranging {
+  /* Applied during tree rearrangement */
+}
+
+.collision-detected {
+  /* Applied when collision is detected */
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2) !important;
+}
+
+/*
+ * END OF UAE ROOTS COMPLETE SYSTEM CSS
+ * ====================================
+ * 
+ * This CSS provides:
+ * 1. Foundation for perfect sidebar sizing (enhanced by JavaScript)
+ * 2. Complete auto-rearrangement system for family tree
+ * 3. FamilyEcho-style connection lines
+ * 4. Professional responsive design
+ * 5. Accessibility and print support
+ * 
+ * The companion JavaScript file will implement:
+ * - Your exact working sidebar fix permanently
+ * - Automatic family tree rearrangement
+ * - Connection line drawing
+ * - All interactive features
+ */
