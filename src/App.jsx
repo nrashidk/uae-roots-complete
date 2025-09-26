@@ -1,27 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import './uae-roots-system.js'; // Import the V7 system
 
 function App() {
   const [currentView, setCurrentView] = useState('login');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   useEffect(() => {
-    // Initialize the V7 system when component mounts
-    if (window.UAERootsSystem) {
-      console.log('🎉 V7 System loaded successfully!');
-      window.UAERootsSystem.init();
-    } else {
-      console.log('⚠️ V7 System not found, checking again...');
-      // Try to initialize after a short delay
-      setTimeout(() => {
-        if (window.UAERootsSystem) {
-          console.log('🎉 V7 System loaded after delay!');
-          window.UAERootsSystem.init();
-        }
-      }, 1000);
-    }
+    // Initialize V7 system directly in the component
+    initializeV7System();
   }, []);
+
+  const initializeV7System = () => {
+    // Load the V7 system script dynamically
+    const script = document.createElement('script');
+    script.src = '/src/uae-roots-system.js';
+    script.onload = () => {
+      console.log('🎉 V7 System loaded successfully!');
+      if (window.UAERootsSystem) {
+        window.UAERootsSystem.init();
+      }
+    };
+    script.onerror = () => {
+      console.log('❌ Failed to load V7 system, using fallback');
+      // Initialize basic functionality as fallback
+      initializeFallbackSystem();
+    };
+    document.head.appendChild(script);
+  };
+
+  const initializeFallbackSystem = () => {
+    // Create a basic fallback system if V7 doesn't load
+    window.UAERootsSystem = {
+      init: () => console.log('Fallback system initialized'),
+      showAddPersonSidebar: () => setSidebarVisible(true),
+      hideSidebar: () => setSidebarVisible(false),
+      addPerson: (personData) => {
+        console.log('Adding person:', personData);
+        setSidebarVisible(false);
+      }
+    };
+  };
 
   const handleLogin = (provider) => {
     console.log(`تسجيل الدخول بـ ${provider}`);
@@ -32,6 +51,22 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setCurrentView('login');
+  };
+
+  const showAddPersonSidebar = () => {
+    if (window.UAERootsSystem && window.UAERootsSystem.showAddPersonSidebar) {
+      window.UAERootsSystem.showAddPersonSidebar();
+    } else {
+      setSidebarVisible(true);
+    }
+  };
+
+  const hideSidebar = () => {
+    if (window.UAERootsSystem && window.UAERootsSystem.hideSidebar) {
+      window.UAERootsSystem.hideSidebar();
+    } else {
+      setSidebarVisible(false);
+    }
   };
 
   const LoginView = () => (
@@ -104,11 +139,7 @@ function App() {
           </button>
           <button 
             className="action-btn secondary"
-            onClick={() => {
-              if (window.UAERootsSystem) {
-                window.UAERootsSystem.showAddPersonSidebar();
-              }
-            }}
+            onClick={showAddPersonSidebar}
           >
             إضافة فرد جديد
           </button>
@@ -144,11 +175,7 @@ function App() {
         <div className="tree-controls">
           <button 
             className="control-btn"
-            onClick={() => {
-              if (window.UAERootsSystem) {
-                window.UAERootsSystem.showAddPersonSidebar();
-              }
-            }}
+            onClick={showAddPersonSidebar}
           >
             إضافة شخص
           </button>
@@ -158,13 +185,124 @@ function App() {
       </header>
 
       <div className="tree-content">
-        {/* V7 System will render the sophisticated family tree here */}
         <div id="family-tree-container" className="family-tree-container">
-          {/* The V7 system will populate this container */}
-          <div className="tree-placeholder">
-            <p>جاري تحميل شجرة العائلة المتطورة...</p>
+          {/* V7 System will render here, or fallback content */}
+          <div className="family-members-grid">
+            <div className="person-box male">
+              <div className="person-info">
+                <h3>محمد الزعابي</h3>
+                <p>الأب</p>
+              </div>
+              <div className="person-actions">
+                <button className="action-btn" title="إضافة زوجة">♥</button>
+                <button className="action-btn" title="إضافة والد">↑</button>
+                <button className="action-btn" title="إضافة طفل">↓</button>
+                <button className="action-btn" title="إضافة شقيق">⟷</button>
+                <button className="action-btn" title="تعديل">✎</button>
+                <button className="action-btn" title="حذف">✗</button>
+              </div>
+            </div>
+
+            <div className="person-box female">
+              <div className="person-info">
+                <h3>فاطمة المنصوري</h3>
+                <p>الأم</p>
+              </div>
+              <div className="person-actions">
+                <button className="action-btn" title="إضافة زوج">♥</button>
+                <button className="action-btn" title="إضافة والد">↑</button>
+                <button className="action-btn" title="إضافة طفل">↓</button>
+                <button className="action-btn" title="إضافة شقيق">⟷</button>
+                <button className="action-btn" title="تعديل">✎</button>
+                <button className="action-btn" title="حذف">✗</button>
+              </div>
+            </div>
+
+            <div className="person-box male">
+              <div className="person-info">
+                <h3>أحمد الزعابي</h3>
+                <p>الابن</p>
+              </div>
+              <div className="person-actions">
+                <button className="action-btn" title="إضافة زوجة">♥</button>
+                <button className="action-btn" title="إضافة والد">↑</button>
+                <button className="action-btn" title="إضافة طفل">↓</button>
+                <button className="action-btn" title="إضافة شقيق">⟷</button>
+                <button className="action-btn" title="تعديل">✎</button>
+                <button className="action-btn" title="حذف">✗</button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+
+  const PersonSidebar = () => (
+    <div className={`person-sidebar ${sidebarVisible ? 'visible' : ''}`}>
+      <div className="sidebar-header">
+        <h2>إضافة شخص جديد</h2>
+        <button className="close-btn" onClick={hideSidebar}>×</button>
+      </div>
+      
+      <div className="sidebar-content">
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const personData = Object.fromEntries(formData);
+          if (window.UAERootsSystem && window.UAERootsSystem.addPerson) {
+            window.UAERootsSystem.addPerson(personData);
+          } else {
+            console.log('Adding person:', personData);
+            hideSidebar();
+          }
+        }}>
+          <div className="form-group">
+            <label>الاسم الكامل</label>
+            <input 
+              type="text" 
+              name="fullName" 
+              placeholder="أدخل الاسم الكامل"
+              required 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>الجنس</label>
+            <select name="gender" required>
+              <option value="">اختر الجنس</option>
+              <option value="male">ذكر</option>
+              <option value="female">أنثى</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>سنة الميلاد</label>
+            <input 
+              type="number" 
+              name="birthYear" 
+              placeholder="مثال: 1980"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>المهنة</label>
+            <input 
+              type="text" 
+              name="profession" 
+              placeholder="أدخل المهنة"
+            />
+          </div>
+
+          <div className="form-actions">
+            <button type="button" className="cancel-btn" onClick={hideSidebar}>
+              إلغاء
+            </button>
+            <button type="submit" className="save-btn">
+              حفظ
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -175,8 +313,11 @@ function App() {
       {currentView === 'dashboard' && <DashboardView />}
       {currentView === 'tree' && <TreeView />}
       
-      {/* V7 System Sidebar - Will be managed by the V7 system */}
+      <PersonSidebar />
+      
+      {/* V7 System containers */}
       <div id="uae-roots-sidebar"></div>
+      <div id="family-tree-v7-container"></div>
     </div>
   );
 }
